@@ -2,13 +2,11 @@
 import css from "./Total.module.css"
 
 const Total = ({parts}) => {
-    let exercises = parts.map(part => part.exercises)
-    let sum = 0;
-    for(let i = 0; i < exercises.length; i++) {
-        sum += exercises[i];
-    }
+    const total = parts.reduce((s, p) => {
+        return  s + p.exercises
+    }, 0)
     return (
-            <p>Number of exercises {sum}</p>
+            <p>Number of exercises {total}</p>
     )
 }
 export default Total;
