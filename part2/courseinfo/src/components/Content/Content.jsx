@@ -2,12 +2,10 @@
 import css from "./Content.module.css"
 import Part from "./Part/Part.jsx";
 
-const Content = (props) => {
+const Content = ({parts}) => {
     return (
         <>
-            <Part part={props.part[0]}/>
-            <Part part={props.part[1]}/>
-            <Part part={props.part[2]}/>
+            {parts.map(part => <Part key={part.id} part={part}/> )}
         </>
     )
 }
