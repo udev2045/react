@@ -48,6 +48,22 @@ const App = () => {
         setNewName('')
         setNewPhone('')
     }
+    const deletePerson = (person) => {
+        if(person.id) {
+            return () => {
+                if (window.confirm(`Delete ${person.name}?`)) {
+                    personService.remove(person.id)
+                        .then(response => {
+                            let filteredPersons = persons.filter(function (p) {
+                                return p.id !== person.id;
+                            })
+                            setPersons(filteredPersons)
+                        })
+                }
+            }
+        }
+        return ''
+    }
     return (
         <div>
             <h2>Phonebook</h2>
@@ -55,7 +71,7 @@ const App = () => {
             <h2>Add a new</h2>
             <PersonForm handlerAddName={handlerAddName} newName={newName} handlerNewName={handlerNewName} newPhone={newPhone} handlerNewPhone={handlerNewPhone}/>
             <h2>Numbers</h2>
-            <Persons newSearch={newSearch} persons={persons}/>
+            <Persons newSearch={newSearch} persons={persons} deletePerson={deletePerson}/>
         </div>
     )
 }
