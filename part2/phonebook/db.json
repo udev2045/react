@@ -1,5 +1,5 @@
 {
-  "persons":[
+  "persons": [
     {
       "name": "Arto Hellas",
       "number": "040-123456",
@@ -19,6 +19,41 @@
       "name": "Mary Poppendieck",
       "number": "39-23-6423122",
       "id": 4
+    },
+    {
+      "name": "Arnold Swarznegger",
+      "number": "14159252525",
+      "id": 5
+    },
+    {
+      "name": "Jonny Dep",
+      "number": "14152502525",
+      "id": 6
+    },
+    {
+      "name": "Bred Pit",
+      "number": "14155555555",
+      "id": 7
+    },
+    {
+      "name": "Tom Cruze",
+      "number": "14157777777",
+      "id": 8
+    },
+    {
+      "name": "Napoleon Hill",
+      "number": "256985245111",
+      "id": 9
+    },
+    {
+      "name": "Oskar Wild",
+      "number": "3126464613213",
+      "id": 10
+    },
+    {
+      "name": "Benjamin Franklin",
+      "number": "120053624125",
+      "id": 11
     }
   ]
 }

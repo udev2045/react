@@ -44,6 +44,11 @@ const App = () => {
             id: id
         }
         setPersons( persons.concat(newPerson) )
+        axios
+            .post('http://localhost:3001/persons', newPerson)
+            .then(response => {
+                console.log(response)
+            })
         setNewName('')
         setNewPhone('')
     }
