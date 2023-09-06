@@ -4,12 +4,16 @@ import Filter from "./Components/Filter/Filter.jsx";
 import PersonForm from "./Components/PersonForm/PersonForm.jsx";
 import Persons from "./Components/Persons/Persons.jsx";
 import personService from "./services/Persons.js"
+import NotificationError from "./Components/Notification/NotificationError.jsx";
+import NotificationSuccess from "./Components/Notification/NotificationSuccess.jsx";
 
 const App = () => {
     const [persons, setPersons] = useState([])
     const [newName, setNewName] = useState('')
     const [newPhone, setNewPhone] = useState('')
     const [newSearch, setNewSearch] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
 
     useEffect( () => {
         personService.getAll()
@@ -39,7 +43,21 @@ const App = () => {
                     number: newPhone,
                     id: existPerson[0].id
                 }
-                personService.update(existPerson[0].id, updatePerson)
+                personService.update(existPerson[0].id, updatePerson).then(returnedNote => {
+                    setSuccessMessage(`${existPerson[0].name} phone updated`)
+                    setTimeout(() => {
+                        setSuccessMessage('')
+                    }, 3000)
+                })
+                    .catch(error => {
+                    setErrorMessage(
+                        `Note '${existPerson[0].name}' was already removed from server`
+                    )
+                    setTimeout(() => {
+                        setErrorMessage('')
+                    }, 3000)
+                        setPersons(persons.filter(n => n.id !== existPerson[0].id))
+                })
                 setPersons(persons.map(person => person.name === existPerson[0].name ? { ...person, number: newPhone } : person ))
             }
             return
@@ -51,7 +69,12 @@ const App = () => {
             id: id
         }
         setPersons( persons.concat(newPerson) )
-        personService.create(newPerson)
+        personService.create(newPerson).then(returnedNote => {
+            setSuccessMessage(`${newPerson.name} was created`)
+            setTimeout(() => {
+                setSuccessMessage('')
+            }, 3000)
+        })
 
         setNewName('')
         setNewPhone('')
@@ -66,7 +89,19 @@ const App = () => {
                                 return p.id !== person.id;
                             })
                             setPersons(filteredPersons)
-                        })
+                            setSuccessMessage(`${person.name} was delete`)
+                            setTimeout(() => {
+                                setSuccessMessage('')
+                            }, 3000)
+                        }) .catch(error => {
+                        setErrorMessage(
+                            `Note '${person.name}' was already removed from server`
+                        )
+                        setTimeout(() => {
+                            setErrorMessage(null)
+                        }, 3000)
+                        setPersons(persons.filter(n => n.id !== person.id))
+                    })
                 }
             }
         }
@@ -74,7 +109,9 @@ const App = () => {
     }
     return (
         <div>
-            <h2>Phonebook</h2>
+            <h1>Phonebook</h1>
+            <NotificationError message={errorMessage} />
+            <NotificationSuccess message={successMessage} />
             <Filter newSearch={newSearch} handlerNewSearch={handlerNewSearch}/>
             <h2>Add a new</h2>
             <PersonForm handlerAddName={handlerAddName} newName={newName} handlerNewName={handlerNewName} newPhone={newPhone} handlerNewPhone={handlerNewPhone}/>
