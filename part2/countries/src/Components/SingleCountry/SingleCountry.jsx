@@ -7,9 +7,11 @@ const SingleCountry = ({country}) => {
     const languages = Object.values(country.languages)
     const lat = country.capitalInfo.latlng[0]
     const lon = country.capitalInfo.latlng[1]
+    // https://home.openweathermap.org/api_keys
+    // titiw14421@horsgit.com
+    // $$QWer1234
     const weatherApiKey= '77334c9808d0f08ba650c647d54b2354'
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${weatherApiKey}`
-    console.log(weatherUrl)
     const [weather, setWeather] = useState({})
     useEffect(() => {
         axios.get(weatherUrl).then(response => {
