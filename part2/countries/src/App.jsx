@@ -18,7 +18,7 @@ function App() {
    <>
     <h1>Countries</h1>
      <div>Find countries <input type="text" value={search} onChange={handlerGetCountries}/></div>
-     <CountriesResult countries={countries} search={search}/>
+     <CountriesResult countries={countries} search={search} setSearch={setSearch}/>
    </>
   )
 }
